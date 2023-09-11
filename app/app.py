@@ -1,39 +1,17 @@
-# Importing essential libraries and modules
-
 from flask import Flask, redirect, render_template, request
-import numpy as np
 from markupsafe import Markup
 import pandas as pd
 
 from utils.fertilizer import fertilizer_dic
-import requests
-
-import pickle
-import io
-import torch
-from torchvision import transforms
-from PIL import Image
-
-# ==============================================================================================
-
-# -------------------------LOADING THE TRAINED MODELS -----------------------------------------------
-
-# Loading plant disease classification model
-
 
 
 app = Flask(__name__)
-
-# render home page
 
 
 @ app.route('/')
 def home():
     title = 'Harvestify - Home'
     return render_template('index.html', title = title)
-
-# render crop recommendation form page
-
 
 
 @ app.route('/fertilizer')
@@ -86,7 +64,6 @@ def fert_recommend():
     return render_template('fertilizer-result.html', recommendation=response, title=title)
 
 
-# ===============================================================================================
 
 if __name__ == '__main__':
     app.run(debug=False)
