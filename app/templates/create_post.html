@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Create Post</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="content">Post Content:</label>
+        <textarea id="content" name="content" rows="4" required></textarea>
+        <br>
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image" accept="image/*">
+        <br>
+        <input type="submit" value="Submit Post">
+    </form>
+{% endblock %}

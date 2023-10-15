@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Harvestify-Community</title>
+    <!-- Include CSS and JavaScript dependencies here -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1 >Harvestify - Community</h1>
+        <br>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home_community') }}">Home</a></li>
+                {% if 'user' in session %}
+                    <li><a href="{{ url_for('create_post') }}">Create Post</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                {% endif %}
+            </ul>
+            <br>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
