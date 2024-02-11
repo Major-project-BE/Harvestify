@@ -1,289 +1,206 @@
 <!DOCTYPE html>
-<html lang="en">
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <!--=============== FAVICON ===============-->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
 
-<head>
-	<title>{{ title }}</title>
-	<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}"/>
+        <!--=============== REMIX ICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
-	<!-- for-mobile-apps -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
-	<meta name="keywords" content="Agro Harvest Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
-	<style>
-		html {
-			font-size: 1rem;
-		}
+        <title>{{title}}</title>
+    </head>
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">
+                    <i class="ri-leaf-line nav__logo-icon"></i> Harvestify
+                </a>
 
-		@media (min-width: 576px) {
-			html {
-				font-size: 1.25rem;
-			}
-		}
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="{{ url_for('homeieee') }}" class="nav__link ">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('fertilizer_recommendation') }}" class="nav__link active-link">Fertilizer</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('disease_prediction') }}" class="nav__link">Disease</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('home_community') }}" class="nav__link">Community</a>
+                        </li>
+                        <!-- <li class="nav__item">
+                            <a href="#contact" class="nav__link">Contact Us</a>
+                        </li> -->
+                    </ul>
 
-		@media (min-width: 768px) {
-			html {
-				font-size: 1.5rem;
-			}
-		}
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+                </div>
 
-		@media (min-width: 992px) {
-			html {
-				font-size: 1.75rem;
-			}
-		}
+                <div class="nav__btns">
+                    <!-- Theme change button -->
+                    <i class="ri-moon-line change-theme" id="theme-button"></i>
 
-		@media (min-width: 1200px) {
-			html {
-				font-size: 2rem;
-			}
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="ri-menu-line"></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
 
-			html {
-				font-size: 1rem;
-			}
-
-			h1 {
-				font-size: 1.2rem;
-			}
-
-			h2 {
-				font-size: 1.1rem;
-			}
-
-			@media (min-width: 768px) {
-				html {
-					font-size: 1.1rem;
-				}
-
-				h1 {
-					font-size: 1.3rem;
-				}
-
-				h2 {
-					font-size: 1.2rem;
-				}
-			}
-
-			@media (min-width: 991px) {
-				html {
-					font-size: 1.2rem;
-				}
-
-				h1 {
-					font-size: 1.5rem;
-				}
-
-				h2 {
-					font-size: 1.4rem;
-				}
-			}
-
-			@media (min-width: 1200px) {
-				html {
-					font-size: 1.2rem;
-				}
-
-				h1 {
-					font-size: 1.7rem;
-				}
-
-				h2 {
-					font-size: 1.6rem;
-				}
-			}
-
-		}
-	</style>
-	<script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
-
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-
-	</script>
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	</body>
-	<!-- css files -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
-	<!-- bootstrap css -->
-	<link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet' type='text/css' />
-	<!-- custom css -->
-	<link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet"><!-- fontawesome css -->
-	<!-- //css files -->
-	<!-- <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png?') }}"> -->
-
-
-<!-- <script type="text/JavaScript" src="{{ url_for('static', filename='scripts/cities.js') }}"></script> -->
-<!-- UNcomment -->
-
-	<!-- google fonts -->
-	<link href="//fonts.googleapis.com/css?family=Thasadith:400,400i,700,700i&amp;subset=latin-ext,thai,vietnamese"
-		rel="stylesheet">
-	<!-- //google fonts -->
-
-	<style>
-		header {
-			background-color: rgba(30, 30, 30, 1);
-			margin-top: 0rem;
-			display: block;
-
-		}
-	</style>
-</head>
-
-<body>
-
-	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top" style="background-color: #1C00ff00;">
-		<div class="container">
-			<a class="navbar-brand" href="{{ url_for('home') }}">
-				<img src="{{ url_for('static', filename='images/Frame 1 (6).png') }}" style="width: 90px; height: 55px" alt="">
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item ">
-						<a class="nav-link" href="{{ url_for('home') }}">Home
-							</a>
-					</li>
-					<!-- <li class="nav-item">
-						<a class="nav-link" >Crop</a>
-					</li> -->
-					<li class="nav-item active">
-						<a class="nav-link" href="{{ url_for('fertilizer_recommendation') }}">Fertilizer
-							<span class="sr-only">(current)</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{ url_for('disease_prediction') }}">Disease</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{ url_for('home_community') }}">Community</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-
-
-
-	<!-- {% block body %} {% endblock %} -->
-
-	<!-- move top icon -->
-	<a href="#home" class="move-top text-center"></a>
-	<!-- //move top icon -->
-</body>
-
-</html>
 
 <!-- 
 ____________________yahaaaa pe________________________________ -->
 
-<style>
-  html body {
-    background-color: rgb(206, 206, 228);
-  }
-</style>
-<!--Form Section-->
-<br /><br />
-<h2 style="text-align: center; margin: 0px; color: black">
-  <b>Get informed advice on fertilizer based on soil</b>
-</h2>
-<br />
-<style>
-    /* CSS to style the button */
-    buttonimg {
-        border: 2px solid #0091ff; /* Solid border with color #333 */
-        padding: 10px 20px; /* Padding for better appearance */
-		border-radius: 4px;
-        font-size: 16px; /* Font size */
-        background-color: #fff; /* Background color */
-        color: #0091ff; /* Text color */
-        cursor: pointer; /* Cursor style */
-        transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
-    }
 
-    /* CSS for hover effect */
-    buttonimg:hover {
-        background-color: #333; /* Change background color on hover */
-        color: #fff; /* Change text color on hover */
-    }
-</style>
-<div
-  style="
-    width: 350px;
-    height: 40rem;
-    margin: 0px auto;
-    color: black;
-    border-radius: 25px;
-    padding: 10px 10px;
-  "
+<!--Form Section-->
+<section class="contact section container" id="contact">                
+	<div class="contact__container grid">
+		<div class="contact__box">
+			<h2 class="section__title">
+				Now you can know <br> what fertilizers to use <br> for your crops
+			</h2>
+
+			<div class="contact__data">
+				<div class="contact__information">
+					<h3 class="contact__subtitle">Enter the P,N,K values for your crop and get the accurate result</h3>
+				
+				</div>
+
+				<div class="contact__information">
+					<h3 class="contact__subtitle">Or you can also upload your SHC report through which we can fetch the deatils.</h3>
+					<button class="button button--flex">
+						<a href="{{ url_for('index') }}" style="color: #fff;">Upload image</a>
+						<i class="ri-arrow-right-up-line button__icon"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<form method="POST" class="contact__form"  action="{{ url_for('fert_recommend') }}">
+			<div class="contact__inputs">
+				<div class="contact__content">
+					<input
+						type="number"
+						class="contact__input"
+						id="Nitrogen"
+						name="nitrogen"
+						 
+					/>
+					<label for="Nitrogen" class="contact__label">Nitrogen</label>
+				</div>
+
+				<div class="contact__content">
+					<input
+						type="number"
+						class="contact__input"
+						id="Phosphorous"
+						name="phosphorous"
+						
+					/>
+					<label for="Phosphorous" class="contact__label">Phosphorous</label>
+				</div>
+
+				<div class="contact__content ">
+					<input
+						type="number"
+						class="contact__input"
+						id="Pottasium"
+						name="pottasium"
+						
+					/>
+					<label for="Potassium" class="contact__label">Potassium</label>
+				</div>
+			</div>
+
+			<div class="contact__content contact__areaforfert">
+				<label class="contact__label" for="crop" 
+				  >Crop you want to grow</label
+				>
+				<select
+				  name="cropname"
+				  class="contact__input"
+				  id="crop"
+				  required
+				>
+				<div class="questions__container">
+				  <option selected>Select a crop</option>
+				  <option>rice</option>
+				  <option>maize</option>
+				  <option>chickpea</option>
+				  <option>kidneybeans</option>
+				  <option>pigeonpeas</option>
+				  <option>mothbeans</option>
+				  <option>mungbean</option>
+				  <option>blackgram</option>
+				  <option>lentil</option>
+				  <option>pomegranate</option>
+				  <option>banana</option>
+				  <option>mango</option>
+				  <option>grapes</option>
+				  <option>watermelon</option>
+				  <option>muskmelon</option>
+				  <option>apple</option>
+				  <option>orange</option>
+				  <option>papaya</option>
+				  <option>coconut</option>
+				  <option>cotton</option>
+				  <option>jute</option>
+				  <option>coffee</option>
+				</div>
+				</select>
+			  </div>
+		  <br>
+			<button type="submit" class="button button--flex">
+				Predict
+				<i class="ri-arrow-right-up-line button__icon"></i>
+			</button>
+			
+		</form>
+	</div>
+</section>
+<!-- <div
+
 >
-  <form method="POST" action="{{ url_for('fert_recommend') }}">
-    <div class="form-group">
-      <label for="Nitrogen" style="font-size: 17px"><b>Nitrogen</b></label>
+  <form method="POST" class="contact__form"  action="{{ url_for('fert_recommend') }}">
+    <div class="contact__content">
       <input
         type="number"
-        class="form-control"
+        class="contact__input"
         id="Nitrogen"
         name="nitrogen"
-        placeholder="Enter the value (example:50)"
-        style="font-weight: bold"
-       
-      />
-    </div>
-    <div class="form-group">
-      <label for="Phosphorous" style="font-size: 17px"
-        ><b>Phosphorous</b></label
-      >
-      <input
-        type="number"
-        class="form-control"
-        id="Phosphorous"
-        name="phosphorous"
-        placeholder="Enter the value (example:50)"
-        style="font-weight: bold"
-        
+        placeholder="Nitrogen (example:50)"  
       />
     </div>
 
-    <div class="form-group">
-      <label for="Pottasium" style="font-size: 17px"><b>Potassium</b></label>
+    <div class="contact__content">
       <input
         type="number"
-        class="form-control"
-        id="Pottasium"
-        name="pottasium"
-        placeholder="Enter the value (example:50)"
-        style="font-weight: bold"
-       
+        class="contact__input"
+        id="Phosphorous"
+        name="phosphorous"
+        placeholder="Phosphorous (example:50)" 
       />
     </div>
+	<div class="contact__content">
+      <input
+        type="number"
+        class="contact__input"
+        id="Pottasium"
+        name="pottasium"
+        placeholder="Potassium (example:50)"
+      />
+    </div> -->
     <!-- <div class="form-group">
       <label for="ph" style="font-size: 17px"><b>ph level</b></label>
       <input
@@ -296,7 +213,7 @@ ____________________yahaaaa pe________________________________ -->
         required
       />
     </div> -->
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="crop" style="font-size: 17px"
         ><b>Crop you want to grow</b></label
       >
@@ -350,8 +267,9 @@ ____________________yahaaaa pe________________________________ -->
         Predict
       </button>
     </div>
-<br>
-	<label class="d-flex justify-content-center" style="font-size: 17px"><b>Or</b></label>
+<br> -->
+	
+<!-- <label class="d-flex justify-content-center" style="font-size: 17px"><b>Or</b></label>
    <br>   
 
 
@@ -379,4 +297,17 @@ ____________________yahaaaa pe________________________________ -->
 	
 	
 </form>
-</div>
+</div> -->
+<a href="#" class="scrollup" id="scroll-up"> 
+  <i class="ri-arrow-up-fill scrollup__icon"></i>
+</a>
+
+<!--=============== SCROLL REVEAL ===============-->
+<script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
+
+<!--=============== MAIN JS ===============-->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+</body>
+</html>

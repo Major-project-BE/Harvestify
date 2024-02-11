@@ -1,221 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <!--=============== FAVICON ===============-->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
 
-<head>
-	<title>{{ title }}</title>
-	<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}"/>
+        <!--=============== REMIX ICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
-	<!-- for-mobile-apps -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
-	<meta name="keywords" content="Agro Harvest Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
-	<style>
-		html {
-			font-size: 1rem;
-		}
+        <title>{{title}}</title>
+    </head>
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">
+                    <i class="ri-leaf-line nav__logo-icon"></i> Harvestify
+                </a>
 
-		@media (min-width: 576px) {
-			html {
-				font-size: 1.25rem;
-			}
-		}
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="{{ url_for('homeieee') }}" class="nav__link ">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('fertilizer_recommendation') }}" class="nav__link active-link">Fertilizer</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('disease_prediction') }}" class="nav__link">Disease</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('home_community') }}" class="nav__link">Community</a>
+                        </li>
+                        <!-- <li class="nav__item">
+                            <a href="#contact" class="nav__link">Contact Us</a>
+                        </li> -->
+                    </ul>
 
-		@media (min-width: 768px) {
-			html {
-				font-size: 1.5rem;
-			}
-		}
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+                </div>
 
-		@media (min-width: 992px) {
-			html {
-				font-size: 1.75rem;
-			}
-		}
+                <div class="nav__btns">
+                    <!-- Theme change button -->
+                    <i class="ri-moon-line change-theme" id="theme-button"></i>
 
-		@media (min-width: 1200px) {
-			html {
-				font-size: 2rem;
-			}
-
-			html {
-				font-size: 1rem;
-			}
-
-			h1 {
-				font-size: 1.2rem;
-			}
-
-			h2 {
-				font-size: 1.1rem;
-			}
-
-			@media (min-width: 768px) {
-				html {
-					font-size: 1.1rem;
-				}
-
-				h1 {
-					font-size: 1.3rem;
-				}
-
-				h2 {
-					font-size: 1.2rem;
-				}
-			}
-
-			@media (min-width: 991px) {
-				html {
-					font-size: 1.2rem;
-				}
-
-				h1 {
-					font-size: 1.5rem;
-				}
-
-				h2 {
-					font-size: 1.4rem;
-				}
-			}
-
-			@media (min-width: 1200px) {
-				html {
-					font-size: 1.2rem;
-				}
-
-				h1 {
-					font-size: 1.7rem;
-				}
-
-				h2 {
-					font-size: 1.6rem;
-				}
-			}
-
-		}
-	</style>
-	<script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
-
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-
-	</script>
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	</body>
-	<!-- css files -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
-	<!-- bootstrap css -->
-	<link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet' type='text/css' />
-	<!-- custom css -->
-	<link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet"><!-- fontawesome css -->
-	<!-- //css files -->
-	<!-- <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png?') }}"> -->
-
-
-	<!-- <script type="text/JavaScript" src="{{ url_for('static', filename='scripts/cities.js') }}"></script> -->
-<!-- UNcomment -->
-
-	<!-- google fonts -->
-	<link href="//fonts.googleapis.com/css?family=Thasadith:400,400i,700,700i&amp;subset=latin-ext,thai,vietnamese"
-		rel="stylesheet">
-	<!-- //google fonts -->
-
-	<style>
-		header {
-			background-color: rgba(30, 30, 30, 1);
-			margin-top: 0rem;
-			display: block;
-
-		}
-	</style>
-</head>
-
-<body>
-
-	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top" style="background-color: #1C00ff00;">
-		<div class="container">
-			<a class="navbar-brand" href="{{ url_for('home') }}">
-				<img src="{{ url_for('static', filename='images/Frame 1 (6).png') }}" style="width: 90px; height: 55px" alt="">
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item ">
-						<a class="nav-link" href="{{ url_for('home') }}">Home
-							
-						</a>
-					</li>
-					<!-- <li class="nav-item">
-						<a class="nav-link" >Crop</a>
-					</li> -->
-					<li class="nav-item active">
-						<a class="nav-link" href="{{ url_for('fertilizer_recommendation') }}">Fertilizer
-							<span class="sr-only">(current)</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{ url_for('disease_prediction') }}">Disease</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{ url_for('home_community') }}">Community</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-
-
-
-	<!-- {% block body %} {% endblock %} -->
-
-
-	<!-- move top icon -->
-	<a href="#home" class="move-top text-center"></a>
-	<!-- //move top icon -->
-</body>
-
-</html>
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="ri-menu-line"></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
 
 <!-- 
 ____________________yahaaaa pe________________________________ -->
 
 
 
+<section class="steps section container">
+	<div class="steps__bg">
+		<h2 class="section__title-center steps__title">
+			Steps to start your <br> fertilization process
+		</h2>
+		<div class="row">
+			<div class="col-sm py-2 py-md-3">
+				<div class="card card-body" >
+					 <p class="text-center " style="color: rgb(255, 255, 255); font-size: 15px; font-family: Poppins;">{{ recommendation }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
+<a href="#" class="scrollup" id="scroll-up"> 
+	<i class="ri-arrow-up-fill scrollup__icon"></i>
+</a>
 
-<div class="container py-2 mx-auto my-50 h-10 " style="margin: 9rem;">
-  <div class="row">
-      <div class="col-sm py-2 py-md-3">
-          <div class="card card-body" style="justify-content: center; background-color:blanchedalmond">
-               <p class="text-center" style="color: black; font-size: 20px;">{{ recommendation }}</p>
-          </div>
-      </div>
-  </div>
-</div>
+<!--=============== SCROLL REVEAL ===============-->
+<script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
+
+<!--=============== MAIN JS ===============-->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+	</body>
+	</html>
