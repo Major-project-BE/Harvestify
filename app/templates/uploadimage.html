@@ -20,14 +20,14 @@
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
-                <a href="#" class="nav__logo">
+                <a href="{{ url_for('home') }}" class="nav__logo">
                     <i class="ri-leaf-line nav__logo-icon"></i> Harvestify
                 </a>
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="{{ url_for('homeieee') }}" class="nav__link">Home</a>
+                            <a href="{{ url_for('home') }}" class="nav__link">Home</a>
                         </li>
                         <li class="nav__item">
                             <a href="{{ url_for('fertilizer_recommendation') }}" class="nav__link  active-link">Fertilizer</a>

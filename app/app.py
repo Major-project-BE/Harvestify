@@ -93,15 +93,15 @@ def predict_image(img, model=disease_model):
     return prediction
 
 
-# @ app.route('/')
-# def home():
-#     title = 'Harvestify - Home'
-#     return render_template('homie.html', title = title)
-
 @ app.route('/')
-def homeieee():
+def home():
     title = 'Harvestify - Home'
     return render_template('homie.html', title = title)
+
+# @ app.route('/homie')
+# def homeieee():
+#     title = 'Harvestify - Home'
+#     return render_template('homie.html', title = title)
 
 
 
