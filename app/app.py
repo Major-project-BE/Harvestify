@@ -163,17 +163,18 @@ def disease_prediction():
             return redirect(request.url)
         file = request.files.get('file')
         if not file:
-            return render_template('disease.html', title=title)
+            return render_template('disease_new.html', title=title)
         try:
             img = file.read()
 
             prediction = predict_image(img)
-
+            
             prediction = Markup(str(disease_dic[prediction]))
-            return render_template('disease-result.html', prediction=prediction, title=title)
+
+            return render_template('disease_new-result.html', prediction=prediction, title=title)
         except:
             pass
-    return render_template('disease.html', title=title)
+    return render_template('disease_new.html', title=title)
 
 # Configure the MongoDB URI
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/community'

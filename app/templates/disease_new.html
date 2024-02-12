@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <!--=============== FAVICON ===============-->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+
+        <!--=============== REMIX ICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+        <title>{{title}}</title>
+    </head>
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">
+                    <i class="ri-leaf-line nav__logo-icon"></i> Harvestify
+                </a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="{{ url_for('home') }}" class="nav__link ">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('fertilizer_recommendation') }}" class="nav__link ">Fertilizer</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('disease_prediction') }}" class="nav__link active-link">Disease</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('home_community') }}" class="nav__link">Community</a>
+                        </li>
+                        <!-- <li class="nav__item">
+                            <a href="#contact" class="nav__link">Contact Us</a>
+                        </li> -->
+                    </ul>
+
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+                </div>
+
+                <div class="nav__btns">
+                    <!-- Theme change button -->
+                    <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="ri-menu-line"></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+
+<!-- 
+____________________yahaaaa pe________________________________ -->
+
+<section class="contact section container" id="contact">                
+	<div class="contact__container grid">
+		<div class="contact__box">
+			<h2 class="section__title" >
+				Find out which disease has been caught by your plant
+			</h2>
+            <br>
+            
+			<div class="contact__data">
+			
+				<div class="contact__information">
+					<h3 class="contact__subtitle">Please upload image of your plant to detect what disease has been occured</h3>
+					
+				</div>
+
+                <form action="{{ url_for('disease_prediction') }}" method="post" enctype="multipart/form-data">
+                    <input class="button button--flex" placeholder="Your image" type="file" name="file" accept="image/*" required>
+                    <br><br>
+                    <input class="button button--flex" type="submit" value="Predict">
+                </form>
+			</div>
+
+
+		</div>
+        <div class="contact__form">
+            <img src="{{ url_for('static', filename='images/diseased_leaves.png') }}"  alt="Diseased Leaves" name="disease_img">
+        </div>
+
+		
+	</div>
+</section>
+
+<a href="#" class="scrollup" id="scroll-up"> 
+  <i class="ri-arrow-up-fill scrollup__icon"></i>
+</a>
+
+<!--=============== SCROLL REVEAL ===============-->
+<script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
+
+<!--=============== MAIN JS ===============-->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+</body>
+</html>
