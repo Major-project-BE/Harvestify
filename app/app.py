@@ -98,6 +98,7 @@ def home():
     title = 'Harvestify - Home'
     return render_template('homie.html', title = title)
 
+
 # @ app.route('/homie')
 # def homeieee():
 #     title = 'Harvestify - Home'
@@ -195,7 +196,7 @@ app.secret_key = 'your_secret_key'
 
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['POST','GET'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
@@ -212,10 +213,11 @@ def register():
             flash('Registration successful. You can now log in.')
             return redirect(url_for('login'))
 
-    return render_template('register.html')
+    return render_template('login_new.html')
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST','GET'])
 def login():
+    title = "Harvestify - Community"
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -227,8 +229,9 @@ def login():
             return redirect(url_for('home_community'))
         else:
             flash('Invalid username or password.')
+            
 
-    return render_template('login.html')
+    return render_template('login_new.html',title=title)
 
 @app.route('/logout')
 def logout():

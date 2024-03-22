@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <!--=============== FAVICON ===============-->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+
+        <!--=============== REMIX ICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+        <title>{{title}}</title>
+
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: "Poppins",sans-serif;
+                
+            }
+    
+            .container-login{
+                
+                margin-top: 100px;
+                display: grid;
+                grid-template-columns:  repeat(auto-fit, minmax(300px, 1fr));
+                column-gap: 20px;
+                margin-bottom: 100px;
+                /* display: flex;*/
+                justify-items: center; 
+                
+                
+            }
+
+            /* @media only screen and (max-width:780px) {
+                .container-login{
+                    flex-direction: column;
+                    align-items: center;
+                }
+            } */
+    
+            .wrapper-login{
+                width: 360px;
+                color: #fff;
+                background-color: transparent;
+                border: 2px solid rgba(255, 255, 255, .2);
+                border-radius: 10px;
+                padding: 30px 40px;
+                
+                
+               
+            }
+    
+            .wrapper-register{
+                width: 360px;
+                color: #fff;
+                background-color: transparent;
+                border: 2px solid rgba(255, 255, 255, .2);
+                border-radius: 10px;
+                padding: 30px 40px;
+                
+            }
+    
+            .wrapper-login h2{
+                font-size: 36px;
+                text-align: center;
+            }
+    
+            .wrapper-register h2{
+                font-size: 36px;
+                text-align: center;
+            }
+    
+    
+            .wrapper-login .input-box{
+                position: relative;
+                width: 100%;
+                height: 50px;
+                margin: 30px 0;
+            }
+    
+            .wrapper-register .input-box{
+                position: relative;
+                width: 100%;
+                height: 50px;
+                margin: 30px 0;
+            }
+    
+            .input-box input{
+                width: 100%;
+                height: 100%;
+                background: transparent;
+                border: none;
+                outline: none;
+                border: 2px solid rgba(255,255,255,.2);
+                border-radius: 40px;
+                font-size: 16px;
+                color: #fff;
+                padding: 20px 45px 20px 20px;
+                
+            }
+    
+            .input-box input::placeholder{
+                color: #fff;
+            }
+    
+            .input-box i{
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 20px;
+    
+            }
+    
+            .wrapper-login .btn{
+                width: 100%;
+                height: 45px;
+                background: #3e6553;
+                border: none;
+                overflow: none;
+                border-radius: 40px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, -1);
+                cursor: pointer;
+                font-size: 16px;
+                color: #fff;
+                font-weight: 600;
+    
+            }
+    
+            .wrapper-register .btn{
+                width: 100%;
+                height: 45px;
+                background: #3e6553;
+                border: none;
+                overflow: none;
+                border-radius: 40px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, -1);
+                cursor: pointer;
+                font-size: 16px;
+                color: #fff;
+                font-weight: 600;
+            }
+    
+            .wrapper-login .register-link{
+                font-size: 14.5px;
+                text-align: center;
+                margin:20px 0 15px;
+    
+            }
+
+            .wrapper-register .login-link{
+                font-size: 14.5px;
+                text-align: center;
+                margin:20px 0 15px;
+            }
+    
+    
+    
+            .register-link p a{
+                color: #fff;
+                text-decoration: none;
+                font-weight: 600;
+    
+            }
+
+            .login-link p a{
+                color: #fff;
+                text-decoration: none;
+                font-weight: 600;
+            }
+    
+            .register-link p a:hover{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+            
+            .login-link p a:hover{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+          
+    
+            .login_image{
+                padding-left: 120px;
+
+            }
+            /* .login-register{
+                position: relative;
+                width: 100%;
+                padding-left: 100px;
+                margin: 0 auto;
+
+            } */
+            .card {
+                position: relative;
+                width: 360px;
+                transform-style: preserve-3d;
+                transition: all 0.5s ease;
+                
+                
+            }
+    
+            .wrapper-login{
+                position: absolute;
+                backface-visibility: hidden;
+            
+            }
+    
+            .wrapper-register{
+                position: absolute;
+                backface-visibility: hidden;
+                transform: rotateY(180deg);
+            }
+    
+            .card.is-flipped{
+                transform : rotateY(180deg);
+                
+            } 
+        
+    
+            
+           
+        </style>
+    </head>
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="{{ url_for('home') }}" class="nav__logo">
+                    <i class="ri-leaf-line nav__logo-icon"></i> Harvestify - Community
+                </a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="{{ url_for('home') }}" class="nav__link ">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('fertilizer_recommendation') }}" class="nav__link ">Fertilizer</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('disease_prediction') }}" class="nav__link ">Disease</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ url_for('home_community') }}" class="nav__link active-link">Community</a>
+                        </li>
+                        <!-- <li class="nav__item">
+                            <a href="#contact" class="nav__link">Contact Us</a>
+                        </li> -->
+                    </ul>
+
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+                </div>
+
+                <div class="nav__btns">
+                    <!-- Theme change button -->
+                    <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="ri-menu-line"></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+
+        <section class="container-login" >
+            
+                <div class="login_img">
+                    <img src="{{url_for('static',filename='images/home.png')}}" alt="" width="360px" >
+                </div> 
+            
+              
+
+                <div class="login-register">
+                    <div class="card"> 
+                        <div class="wrapper-login"> 
+                        
+                            <form action="" method="POST">
+                                <h2>Login</h2>
+                                <div class="input-box">
+                                    <input type="text" placeholder=" Username" id="username" name="username" required>
+                                    <i class='bx bxs-user'></i>
+                                </div>
+                                <div class="input-box">
+                                    <input type="password" placeholder=" Password" id="password" name="password" required>
+                                    <i class='bx bxs-lock-alt'></i>
+                                </div>
+                                
+                                <button type="submit"  class="btn">Login</button>
+            
+                                <div class="register-link" >
+                                    <p>Don't have an account ?  <a onclick="flip()">Register</a> </p>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="wrapper-register">
+
+                            <form action="/register" method="POST">
+                                <h2>Register</h2>
+                                <div class="input-box">
+                                    <input type="text" placeholder=" Username" id="username" name="username" required>
+                                    <i class='bx bxs-user'></i>
+                                </div>
+                                <div class="input-box">
+                                    <input type="password" placeholder=" Password" id="password" name="password" required>
+                                    <i class='bx bxs-lock-alt'></i>
+                                </div>
+                                <button type="submit"  class="btn">Register</button>
+                                <div class="login-link" >
+                                    <p>Back to Login ?  <a onclick="flip()">Login</a> </p>
+                                </div>
+                            </form>
+                        </div> 
+                    </div>
+                
+                </div>
+
+          
+
+        </section>
+        <script>
+            function flip(){
+                var card = document.querySelector('.card');
+                card.classList.toggle('is-flipped');
+            }
+        </script>
+
+<script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
+        
+    <!--=============== MAIN JS ===============-->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+        
+</body>
+</html>
+    
+    
+    
+    
+
+
+

@@ -139,3 +139,14 @@ sr.reveal(`.home__social`, {delay: 600})
 sr.reveal(`.about__img, .contact__box`,{origin: 'left'})
 sr.reveal(`.about__data, .contact__form`,{origin: 'right'})
 sr.reveal(`.steps__card, .product__card, .questions__group, .footer`,{interval: 100})
+
+const sr_new = ScrollReveal({
+    origin:'down',
+    distance:'60px',
+    duration:2500,
+    delay:500
+
+})
+
+sr_new.reveal('.login-register')
+sr_new.reveal('.login_img')
