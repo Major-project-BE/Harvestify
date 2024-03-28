@@ -283,6 +283,7 @@ def create_post():
             posts.insert_one(new_post)
             flash('Post created successfully.')
             return redirect(url_for('home_community'))
+        
         return render_template('create_post.html')
     return redirect(url_for('login'))
 
@@ -330,10 +331,10 @@ def comment_post(post_id):
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  
 
 
-UPLOAD_FOLDER = 'uploads_extract'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+UPLOAD_FOLDERR = 'uploads_extract'
+app.config['UPLOAD_FOLDERR'] = UPLOAD_FOLDERR
+if not os.path.exists(UPLOAD_FOLDERR):
+    os.makedirs(UPLOAD_FOLDERR)
 
 def preprocess_image(image_path):
     # Load the image using OpenCV
@@ -346,7 +347,7 @@ def preprocess_image(image_path):
     _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     
     # Save the preprocessed image for reference
-    preprocessed_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'preprocessed_image.png')
+    preprocessed_image_path = os.path.join(app.config['UPLOAD_FOLDERR'], 'preprocessed_image.png')
     cv2.imwrite(preprocessed_image_path, thresh)
     
     return preprocessed_image_path
@@ -368,7 +369,7 @@ def extract_name_from_aadhar():
     
     try:
         # Save the uploaded image to the upload folder
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename))
+        image_path = os.path.join(app.config['UPLOAD_FOLDERR'], secure_filename(image.filename))
         image.save(image_path)
         
         # Preprocess the image to enhance OCR accuracy
