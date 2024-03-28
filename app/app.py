@@ -19,7 +19,8 @@ import cv2
 from werkzeug.utils import secure_filename
 from PIL import Image
 from utils.model import ResNet9
-
+from bson import ObjectId
+import datetime
 
 app = Flask(__name__)
 
@@ -191,7 +192,8 @@ users = mongo.db.users
 posts = mongo.db.posts
 comments = mongo.db.comments
 likes_dislikes = mongo.db.likes_dislikes
-
+# comments_user = []
+# comments_list = []
 app.secret_key = 'your_secret_key'
 
 
@@ -251,12 +253,16 @@ def home_community():
 def uploaded_file(filename):
     return send_from_directory('uploads', filename)
 
+
 @app.route('/create_post', methods=['GET', 'POST'])
 def create_post():
     if 'user' in session:
         if request.method == 'POST':
             post_content = request.form['content']
-            post_date = datetime.now()
+            post_date_extracted = datetime.datetime.now()
+            post_date = post_date_extracted.strftime("%c")
+            no_likes = 0
+            no_dislikes = 0
             
             # Handle image upload
             # Handle image upload in the 'create_post' route
@@ -276,7 +282,9 @@ def create_post():
                 'user': session['user'],
                 'content': post_content,
                 'date': post_date,
-                'image_path': image_path  # Store the image file name in MongoDB
+                'image_path': image_path , # Store the image file name in MongoDB
+                'no_likes' : no_likes,
+                'no_dislikes' : no_dislikes
             }
 
             # Insert the new post into the database
@@ -292,6 +300,7 @@ def create_post():
 def like_post(post_id):
     if 'user' in session:
         user = session['user']
+        
         # Check if the user has already liked or disliked the post
         existing_like_dislike = likes_dislikes.find_one({'post_id': post_id, 'user': user})
         if existing_like_dislike:
@@ -300,6 +309,7 @@ def like_post(post_id):
         else:
             # Add a new like record
             likes_dislikes.insert_one({'post_id': post_id, 'user': user, 'type': 'like'})
+            posts.update_one({'_id': ObjectId(post_id)}, {'$inc': {'no_likes': 1}})
             flash('You liked the post!')
     return redirect(url_for('home_community'))
 
@@ -315,6 +325,7 @@ def dislike_post(post_id):
         else:
             # Add a new dislike record
             likes_dislikes.insert_one({'post_id': post_id, 'user': user, 'type': 'dislike'})
+            posts.update_one({'_id': ObjectId(post_id)}, {'$inc': {'no_dislikes': 1}})
             flash('You disliked the post!')
     return redirect(url_for('home_community'))
 
@@ -325,8 +336,12 @@ def comment_post(post_id):
         comment_content = request.form['comment_content']
         # Add the comment to the comments collection along with the post_id and user information
         comments.insert_one({'post_id': post_id, 'user': user, 'content': comment_content})
+        # comments_user.append(user)
+        # comments_list.append(comment_content)
+        # leng = len(comments_user)
         flash('Your comment was added.')
-    return redirect(url_for('home_community'))
+    return redirect(url_for('home_community',  comments_user=user, comments_list=comment_content))
+    
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  
 
