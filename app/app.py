@@ -118,7 +118,28 @@ def fertilizer_recommendation():
 @ app.route('/fertilizer-predict', methods=['POST'])
 def fert_recommend():
     title = 'Harvestify - Fertilizer Suggestion'
-
+    crop_list = {'rice':'https://media.istockphoto.com/id/497711693/photo/rice-field.webp?b=1&s=170667a&w=0&k=20&c=ziH0h9qotY_MkbWl7f_M1mUZ12ghBzNLselY8OT8D84=',
+                 'maize':'https://img.freepik.com/free-photo/beautiful-shot-cornfield-with-blue-sky_181624-20783.jpg',
+                 'chickpea':'https://t4.ftcdn.net/jpg/02/77/58/17/360_F_277581792_trTRdyvnE9H5rPLt1WDLUyHK7ZJ8FAny.jpg',
+                 'kidneybeans':'https://www.crops.org/files/images/news/20160823-143936-hand-holding-kidney-beans-800x600.jpg',
+                 'pigeonpeas':'https://static.vecteezy.com/system/resources/previews/006/540/162/non_2x/green-pigeon-pea-field-in-india-photo.JPG',
+                 'mothbeans':'https://www.feedipedia.org/sites/default/files/images/Vigna-aconitifolia_leaves%26flowers-MJussoorie%20Chakrata%20road%20near%20Bharatkhai-1-DSC09876.jpg',
+                 'mungbean':'https://www.epicgardening.com/wp-content/uploads/2021/10/Mung-bean-plant.jpg',
+                 'blackgram':'https://www.agrifarming.in/wp-content/uploads/2015/04/Black-Gram-Production..jpg',
+                 'lentil':'https://media.sciencephoto.com/e7/70/09/17/e7700917-800px-wm.jpg',
+                 'pomegranate':'https://agrosiaa.com/uploads/userdata/blogs/24/16143999001.png',
+                 'banana':'https://media.istockphoto.com/id/471467855/photo/banana-tree.jpg?s=612x612&w=0&k=20&c=gPOgedQhaMK26gOdUEcnnDiKGOnBGNGc199ajc0TGYo=',
+                 'mango':'https://media.istockphoto.com/id/601122142/photo/crop-of-sun-kissed-mango-fruit-ripening-on-tree.jpg?s=612x612&w=0&k=20&c=LWqDqwt6SV5ye5WQs8M3xUmqiQNgLxu41HWxj4LvEEs=',
+                 'grapes':'https://www.tpci.in/indiabusinesstrade/wp-content/uploads/2020/12/Grape-export.jpg',
+                 'watermelon':'https://horticulture.punjab.gov.in/images/crops/Watermelon1.jpg',
+                 'muskmelon':'https://www.agrifarming.in/wp-content/uploads/2015/05/Growing-Cantaloupe..jpg',
+                 'apple':'https://www.thestatesman.com/wp-content/uploads/2022/09/The-Apple-cultivation-story-is-full-of-challenges-in-India-1.jpg',
+                 'orange':'https://www.apnikheti.com/upload/crops/4257idea99oranges-on-citrus-tree.jpg',
+                 'papaya':'https://blog.agribegri.com/public/blog_images/papaya-farming-guide-600x400.jpg',
+                 'coconut':'https://www.asiafarming.com/wp-content/uploads/2015/09/Coconut-Cultivation1.png',
+                 'cotton':'https://bloximages.chicago2.vip.townnews.com/pinalcentral.com/content/tncms/assets/v3/editorial/9/63/963d234e-9fc7-5042-be5d-11f691fb8105/5c093cbb3514c.image.jpg',
+                 'jute':'https://t3.ftcdn.net/jpg/05/61/99/80/360_F_561998023_YmOc0Qe3VTK0o5uhJ9eH3BSX49z5dDVl.jpg',
+                 'coffee':'https://media.istockphoto.com/id/1321031195/photo/coffee-ready-for-harvest.jpg?s=612x612&w=0&k=20&c=Oy05CZ7VZ9HtsjtE9ttFnzkRg0kEEelyHTCUondHQ7w='}
     crop_name = str(request.form['cropname'])
     N = int(float(request.form['nitrogen']))
     P = int(float(request.form['phosphorous']))
@@ -153,8 +174,8 @@ def fert_recommend():
             key = "Klow"
 
     response = Markup(str(fertilizer_dic[key]))
-
-    return render_template('fertilizer-result.html', recommendation=response, title=title)
+    crop_image = crop_list[crop_name]
+    return render_template('fertilizer-result.html', recommendation=response,crop_image=crop_image,crop_name=crop_name.capitalize(), title=title)
 
 @app.route('/disease-predict', methods=['GET', 'POST'])
 def disease_prediction():
