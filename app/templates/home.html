@@ -1,30 +1,43 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h2>Welcome, {{ user }}!</h2>
-    <h3>Recent Posts</h3>
+    <h2 style="background-color: var(--body-color)">Welcome, {{ user }}!</h2>
+    <h3 style="background-color: var(--body-color)">Recent Posts</h3>
     <br>
     <ul>
         {% for post in posts %}
-            <li>
-                <strong>{{ post.user }}</strong> - {{ post.content }} 
+        
+            <li style="background-color: var(--body-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            padding: 20px;"
+            onmouseover="this.style.transform='translateY(-5px)';"
+            onmouseout="this.style.transform='translateY(0)';"> 
+                <strong >{{ post.user }}</strong> - {{ post.content }} 
                 <p>{{ post.date }}</p>
+           
                 
                 <br><br>
 
-                <a href="{{ url_for('like_post', post_id=post._id) }}" style="background-color: #007bff; color: #fff; padding: 5px 10px; text-decoration: none;">Like</a>
-                <a href="{{ url_for('dislike_post', post_id=post._id) }}" style="background-color: #ff0000; color: #fff; padding: 5px 10px; text-decoration: none;">Dislike</a>
+                <a href="{{ url_for('like_post', post_id=post._id) }}" style="background-color: #007bff; color: #fff; padding: 5px 10px; text-decoration: none;">Like {{ post.no_likes }}</a>
+                <a href="{{ url_for('dislike_post', post_id=post._id) }}" style="background-color: #ff0000; color: #fff; padding: 5px 10px; text-decoration: none;">Dislike {{ post.no_dislikes }}</a>
             <br><br>
-                <p>Likes: {{ post.no_likes }}</p>
-                <p>Dislikes: {{ post.no_dislikes }}</p>
-
+                <!-- <p>Likes: {{ post.no_likes }}</p>
+                <p>Dislikes: {{ post.no_dislikes }}</p> -->
+        
+                <div style=" width: 100%;
+                height: auto;
+                ">
+                <!-- border-bottom: 1px solid #f0f0f0;" -->
                 {% if post.image_path %}
                     <img src="{{ url_for('uploaded_file', filename=post.image_path) }}" alt="Post Image" height="50%" width="50%">
                 {% endif %}
-
+                </div>
                 <h4>Comments</h4>
                 <br>
-                    
+                  
                     {% for comment in comments %}
                         {{comment}}
                     {%endfor%}
