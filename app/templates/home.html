@@ -3,48 +3,50 @@
 {% block content %}
     <h2>Welcome, {{ user }}!</h2>
     <h3>Recent Posts</h3>
+    <br>
     <ul>
         {% for post in posts %}
             <li>
-                <strong>{{ post.user }}</strong> - {{ post.date }}
-                <p>{{ post.content }}</p>
-                <br>
+                <strong>{{ post.user }}</strong> - {{ post.content }} 
+                <p>{{ post.date }}</p>
+                
+                <br><br>
 
                 <a href="{{ url_for('like_post', post_id=post._id) }}" style="background-color: #007bff; color: #fff; padding: 5px 10px; text-decoration: none;">Like</a>
                 <a href="{{ url_for('dislike_post', post_id=post._id) }}" style="background-color: #ff0000; color: #fff; padding: 5px 10px; text-decoration: none;">Dislike</a>
             <br><br>
-                <p>Likes: {{ post.likes }}</p>
-            <p>Dislikes: {{ post.dislikes }}</p>
+                <p>Likes: {{ post.no_likes }}</p>
+                <p>Dislikes: {{ post.no_dislikes }}</p>
 
                 {% if post.image_path %}
                     <img src="{{ url_for('uploaded_file', filename=post.image_path) }}" alt="Post Image" height="50%" width="50%">
                 {% endif %}
 
                 <h4>Comments</h4>
-                <ul>
-                    {% for comment in post.comments %}
-                        <li>
-                            <strong>{{ comment.user }}</strong> - {{ comment.date }}
-                            {{ comment.content }}
-                        </li>
-                    {% endfor %}
-                </ul>
-    
+                <br>
+                    
+                    {% for comment in comments %}
+                        {{comment}}
+                    {%endfor%}
+                <br>
                 <!-- Comment form -->
                 <form method="POST" action="{{ url_for('comment_post', post_id=post._id) }}">
                     <textarea name="comment_content" rows="2"></textarea>
                     <input type="submit" value="Add Comment">
                 </form>
+                
 
+                
             </li>
         {% endfor %}
     </ul>
-    {% for post in posts %}
-    {% for comment in post.comments %}
-    <li>
-        <strong>{{ comment.user }}</strong> - {{ comment.date }}
-        {{ comment.content }}
-    </li>
-    {% endfor %}
-{% endfor %}
+    <!-- {% for post in posts %}
+        {% for comment in comments %}
+            <li>
+                <strong>{{ comment.user }}</strong> - {{ comment.date }}
+                {{ comment.content }}
+            </li>
+        {% endfor %}
+    {% endfor %} -->
+    
 {% endblock %}
