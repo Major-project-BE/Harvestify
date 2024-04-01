@@ -24,10 +24,26 @@
 
                 <h4>Comments</h4>
                 <br>
+                {{post._id}}
+              
+                {% for i in a%} 
+                    {% if post._id == i['post_id'] %}
+                        {{i['user']}} - {{i['content']}}
+                        
+                    {%else%}
+                        {{i['post_id']}}
+                    {%endif%}
                     
-                    {% for comment in comments %}
-                        {{comment}}
-                    {%endfor%}
+                    <!-- {{i['post_id']}} -->
+                {%endfor%} 
+                <!-- {% for comment in comments %}
+                    
+                    {{comment}}
+                    
+                {% endfor %} -->
+                
+
+                    
                 <br>
                 <!-- Comment form -->
                 <form method="POST" action="{{ url_for('comment_post', post_id=post._id) }}">
@@ -35,10 +51,11 @@
                     <input type="submit" value="Add Comment">
                 </form>
                 
-
+                
                 
             </li>
         {% endfor %}
+        
     </ul>
     <!-- {% for post in posts %}
         {% for comment in comments %}

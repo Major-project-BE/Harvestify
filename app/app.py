@@ -145,6 +145,7 @@ def fert_recommend():
     P = int(float(request.form['phosphorous']))
     K = int(float(request.form['pottasium']))
     # ph = float(request.form['ph'])
+    
 
     df = pd.read_csv('Data/fertilizer.csv')
 
@@ -213,8 +214,8 @@ users = mongo.db.users
 posts = mongo.db.posts
 comments = mongo.db.comments
 likes_dislikes = mongo.db.likes_dislikes
-# comments_user = []
-# comments_list = []
+comments_user = []
+comments_list = []
 app.secret_key = 'your_secret_key'
 
 
@@ -267,7 +268,10 @@ def home_community():
     if 'user' in session:
         user = session['user']
         all_posts = posts.find().sort('_id', -1)
-        return render_template('home.html', user=user, posts=all_posts)
+        all_comments = comments.find().sort('_id',-1)
+        a = list(all_comments)
+        
+        return render_template('home.html', user=user, posts=all_posts,comments= all_comments,a=a)
     return redirect(url_for('login'))
 
 @app.route('/uploads/<filename>')
@@ -357,11 +361,11 @@ def comment_post(post_id):
         comment_content = request.form['comment_content']
         # Add the comment to the comments collection along with the post_id and user information
         comments.insert_one({'post_id': post_id, 'user': user, 'content': comment_content})
-        # comments_user.append(user)
-        # comments_list.append(comment_content)
-        # leng = len(comments_user)
+        comments_user.append(user)
+        comments_list.append(comment_content)
+        leng = len(comments_user)
         flash('Your comment was added.')
-    return redirect(url_for('home_community',  comments_user=user, comments_list=comment_content))
+    return redirect(url_for('home_community'))
     
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  
