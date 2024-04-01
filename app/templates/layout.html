@@ -4,8 +4,67 @@
     <title>Harvestify-Community</title>
     <!-- Include CSS and JavaScript dependencies here -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+
+        <!--=============== REMIX ICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
 </head>
 <body>
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="{{ url_for('home') }}" class="nav__logo">
+                <i class="ri-leaf-line nav__logo-icon"></i> Harvestify - Community
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item" ><a href="{{ url_for('home_community') }}" class="nav__link active-link">Home</a></li>
+                    {% if 'user' in session %}
+                        <li class="nav__item"><a href="{{ url_for('create_post') }}" class="nav__link">Create Post</a></li>
+                        <li class="nav__item"><a href="{{ url_for('logout') }}" class="nav__link">Logout</a></li>
+                    {% else %}
+                        <li class="nav__item"><a href="{{ url_for('login') }}" class="nav__link">Login</a></li>
+                        <li class="nav__item"><a href="{{ url_for('register') }} " class="nav__link">Register</a></li>
+                    {% endif %}
+    
+                    <!-- <li class="nav__item">
+                        <a href="#home" class="nav__link active-link">Home</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{ url_for('fertilizer_recommendation') }}" class="nav__link">Fertilizer</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{ url_for('disease_prediction') }}" class="nav__link">Disease</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{ url_for('home_community') }}" class="nav__link">Community</a>
+                    </li> -->
+
+                    <!-- <li class="nav__item">
+                        <a href="#contact" class="nav__link">Contact Us</a>
+                    </li> -->
+                </ul>
+
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+
+            <div class="nav__btns">
+                <!-- Theme change button -->
+                <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+<!-- 
     <header>
         <h1 ><a  style=" color: aliceblue; text-decoration: none;"  href="{{ url_for('home') }}">Harvestify - Community</a></h1>
         <br>
@@ -22,9 +81,14 @@
             </ul>
             <br>
         </nav>
-    </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    </header> -->
+    <!-- <main> -->
+       <div class="steps section container"> {% block content %}{% endblock %}
+       </div>
+        <!-- </main> -->
 </body>
+<script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
+        
+        <!--=============== MAIN JS ===============-->
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </html>
