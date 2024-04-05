@@ -9,14 +9,14 @@
         
             <li style="background-color: var(--body-color);
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
             overflow: hidden;
             transition: transform 0.3s ease;
             padding: 20px;"
             onmouseover="this.style.transform='translateY(-5px)';"
             onmouseout="this.style.transform='translateY(0)';"> 
                 <strong >{{ post.user }}</strong> - {{ post.content }} 
-                <p>{{ post.date }}</p>
+                <p><strong >Created : </strong>{{ post.date }}</p>
            
                 
                 <br><br>
@@ -47,9 +47,9 @@
                     <textarea name="comment_content" rows="2"></textarea>
                     <input type="submit" value="Add Comment">
                 </form>
+                <br>
                 
-                
-                
+                <div style="border-bottom: 1px solid #f0f0f0;"></div>
             </li>
         {% endfor %}
         

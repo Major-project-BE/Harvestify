@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvestify</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://source.unsplash.com/1600x900/?agriculture');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+        }
+        header {
+            background-color: rgba(76, 175, 80, 0.7);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        footer {
+            background-color: rgba(76, 175, 80, 0.7);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .policy-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            color: #333;
+        }
+        .policy-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .policy-details {
+            margin-bottom: 20px;
+        }
+        .policy-source {
+            color: #666;
+            font-size: 14px;
+        }
+        .policy-date {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .social-media-icons {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+        .social-media-icons a {
+            color: white;
+            margin: 0 10px;
+        }
+        .carousel-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .apply-button,
+        .view-more-button {
+            display: block;
+            background-color: #4CAF50;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .apply-button:hover,
+        .view-more-button:hover {
+            background-color: #388e3c;
+        }
+        .footer-content {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Harvestify</h1>
+        <h2>One Stop For All The Policies</h2>
+        <nav class="navbar navbar-expand-md navbar-dark">
+            <div class="navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Community</a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="toggleModeBtn" class="btn btn-light">Dark Mode</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div id="policyCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner ">
+                        {% for item in data %}
+                        <div class="policy-card">
+                            
+                            <div class="policy">
+                                <h2 class="policy-title" >{{ item.title }}</h2>
+                                <p class="policy-details">{{ item.details }}</p>
+                                <p class="policy-source">{{ item.source }}</p>
+                                <p class="policy-date">{{ item.date }}</p>
+                            
+                            
+                            <a href="${policy.applyLink}" class="apply-button">Apply</a>
+                            <a href="${policy.moreInfoLink}" class="view-more-button">View More</a>
+                            </div>
+                           
+                        </div>
+                     {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#policyCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#policyCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-media-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="footer-content">
+            <p>Contact: harvestify@gmail.com</p>
+            <p>Follow us on social media for more updates!</p>
+            <p>&copy; 2024 Harvestify. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</body>
+</html>

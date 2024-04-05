@@ -23,6 +23,7 @@
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item" ><a href="{{ url_for('home_community') }}" class="nav__link active-link">Home</a></li>
+                    <li class="nav__item" ><a href="{{ url_for('policcy') }}" class="nav__link ">Policy</a></li>
                     {% if 'user' in session %}
                         <li class="nav__item"><a href="{{ url_for('create_post') }}" class="nav__link">Create Post</a></li>
                         <li class="nav__item"><a href="{{ url_for('logout') }}" class="nav__link">Logout</a></li>

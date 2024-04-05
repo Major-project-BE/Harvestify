@@ -1,3 +1,4 @@
+import json
 from markupsafe import Markup
 import pandas as pd
 from utils.fertilizer import fertilizer_dic
@@ -214,8 +215,8 @@ users = mongo.db.users
 posts = mongo.db.posts
 comments = mongo.db.comments
 likes_dislikes = mongo.db.likes_dislikes
-comments_user = []
-comments_list = []
+
+
 app.secret_key = 'your_secret_key'
 
 
@@ -270,13 +271,31 @@ def home_community():
         all_posts = posts.find().sort('_id', -1)
         all_comments = comments.find().sort('_id',-1)
         a = list(all_comments)
-        
+        # b = list()
+        # for i in all_posts:
+        #     b.append(str(i['_id']))
+
+        # print(b)
         return render_template('home.html', user=user, posts=all_posts,comments= all_comments,a=a)
     return redirect(url_for('login'))
+
+@app.route('/policy')
+def policcy():
+    # Read the JSON data from the file
+    with open('amazon_data.json', 'r') as f:
+        data = json.load(f)
+    return render_template('policy.html', data=data)
+
+# @app.route('/policy')
+# def policcy():
+    
+#     return render_template('policy.html')
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory('uploads', filename)
+
 
 
 @app.route('/create_post', methods=['GET', 'POST'])
@@ -361,9 +380,9 @@ def comment_post(post_id):
         comment_content = request.form['comment_content']
         # Add the comment to the comments collection along with the post_id and user information
         comments.insert_one({'post_id': post_id, 'user': user, 'content': comment_content})
-        comments_user.append(user)
-        comments_list.append(comment_content)
-        leng = len(comments_user)
+        # comments_user.append(user)
+        # comments_list.append(comment_content)
+        # leng = len(comments_user)
         flash('Your comment was added.')
     return redirect(url_for('home_community'))
     
