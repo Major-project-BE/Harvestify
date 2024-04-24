@@ -279,12 +279,7 @@ def home_community():
         return render_template('home.html', user=user, posts=all_posts,comments= all_comments,a=a)
     return redirect(url_for('login'))
 
-@app.route('/policy')
-def policcy():
-    # Read the JSON data from the file
-    with open('amazon_data.json', 'r') as f:
-        data = json.load(f)
-    return render_template('policy.html', data=data)
+
 
 # @app.route('/policy')
 # def policcy():
@@ -385,6 +380,94 @@ def comment_post(post_id):
         # leng = len(comments_user)
         flash('Your comment was added.')
     return redirect(url_for('home_community'))
+    
+
+
+@app.route('/policy')
+def policcy():
+    # Read the JSON data from the file
+    with open('amazon_data.json', 'r') as f:
+        data = json.load(f)
+    return render_template('policy.html', data=data)
+
+
+
+# policy db
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/Policies'
+mongo = PyMongo(app)
+
+UPLOAD_FOLDER1 = 'upload_aadhar'
+app.config['UPLOAD_FOLDER1'] = UPLOAD_FOLDER1
+if not os.path.exists(UPLOAD_FOLDER1):
+    os.makedirs(UPLOAD_FOLDER1)
+
+UPLOAD_FOLDER2 = 'upload_income_cert'
+app.config['UPLOAD_FOLDER2'] = UPLOAD_FOLDER2
+if not os.path.exists(UPLOAD_FOLDER2):
+    os.makedirs(UPLOAD_FOLDER2)
+
+
+# defining collection
+policy_data = mongo.db.policy_data
+
+
+@app.route('/upload_aadhar/<filename>')
+def uploaded_file1(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER1'], filename)
+
+@app.route('/upload_income_cert/<filename>')
+def uploaded_file2(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER2'], filename)
+
+@app.route('/apply_policy/<policy_name>',methods=['POST','GET'])
+def apply_policy(policy_name):
+    if 'user' in session:
+        if request.method == 'POST':
+            policy_name = request.form['policy_name']
+            name = request.form['name']
+            address = request.form['address']
+            age = request.form['age']
+            gender = request.form['gender']
+
+            
+            aadhar_copy = request.files['aadhar']
+            if aadhar_copy.filename != '':
+                aadhar_filename = secure_filename(aadhar_copy.filename)
+                aadhar_copy.save(os.path.join(app.config['UPLOAD_FOLDER1'], aadhar_filename))
+                aadhar_filename = aadhar_filename
+            else:
+                aadhar_filename = None
+            
+
+            
+            income_copy = request.files['incomeCertificate']
+            if income_copy.filename != '':
+                income_filename = secure_filename(income_copy.filename)
+                income_copy.save(os.path.join(app.config['UPLOAD_FOLDER2'], income_filename))
+                income_filename = income_filename
+            else:
+                income_filename = None
+           
+
+            policy_doc ={
+                'name' : name,
+                'age' : age,
+                'gender' : gender,
+                'address' : address,
+                'policy_name': policy_name,
+                'aadhar_filename' : aadhar_filename,
+                'income_filename' : income_filename
+            }
+
+
+            policy_data.insert_one(policy_doc)
+            flash('Post created successfully.')
+            return redirect(url_for('policcy'))
+       
+        return render_template('register_policy.html',policy_name=policy_name)
+    return redirect(url_for('login'))
+
+
     
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  

@@ -6,10 +6,18 @@
     <title>Harvestify</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+    
+        <!--=============== REMIX ICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+        <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('https://source.unsplash.com/1600x900/?agriculture');
+            /* background-image: url('https://source.unsplash.com/1600x900/?agriculture'); */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -31,7 +39,7 @@
         .policy-card {
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             margin: 20px auto;
             padding: 20px;
             max-width: 800px;
@@ -84,10 +92,13 @@
         .footer-content {
             margin-top: 20px;
         }
+        .justify-content-center{
+            margin-top: 10%;
+        }
     </style>
 </head>
 <body>
-    <header>
+    <!-- <header>
         <h1>Harvestify</h1>
         <h2>One Stop For All The Policies</h2>
         <nav class="navbar navbar-expand-md navbar-dark">
@@ -105,8 +116,60 @@
                 </ul>
             </div>
         </nav>
-    </header>
+    </header> -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="{{ url_for('home') }}" class="nav__logo">
+                <i class="ri-leaf-line nav__logo-icon"></i> Harvestify - Community
+            </a>
 
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item" ><a href="{{ url_for('home_community') }}" class="nav__link">Home</a></li>
+                    <li class="nav__item" ><a href="{{ url_for('policcy') }}" class="nav__link active-link ">Policy</a></li>
+                    {% if 'user' in session %}
+                        <li class="nav__item"><a href="{{ url_for('create_post') }}" class="nav__link">Create Post</a></li>
+                        <li class="nav__item"><a href="{{ url_for('logout') }}" class="nav__link">Logout</a></li>
+                    {% else %}
+                        <li class="nav__item"><a href="{{ url_for('login') }}" class="nav__link">Login</a></li>
+                        <li class="nav__item"><a href="{{ url_for('register') }} " class="nav__link">Register</a></li>
+                    {% endif %}
+    
+                    <!-- <li class="nav__item">
+                        <a href="#home" class="nav__link active-link">Home</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{ url_for('fertilizer_recommendation') }}" class="nav__link">Fertilizer</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{ url_for('disease_prediction') }}" class="nav__link">Disease</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{ url_for('home_community') }}" class="nav__link">Community</a>
+                    </li> -->
+
+                    <!-- <li class="nav__item">
+                        <a href="#contact" class="nav__link">Contact Us</a>
+                    </li> -->
+                </ul>
+
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+
+            <div class="nav__btns">
+                <!-- Theme change button -->
+                <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <br>
+    
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -116,13 +179,13 @@
                         <div class="policy-card">
                             
                             <div class="policy">
-                                <h2 class="policy-title" >{{ item.title }}</h2>
+                                <h2 class="policy-title " style="color: black;" >{{ item.title }}</h2>
                                 <p class="policy-details">{{ item.details }}</p>
                                 <p class="policy-source">{{ item.source }}</p>
                                 <p class="policy-date">{{ item.date }}</p>
                             
                             
-                            <a href="${policy.applyLink}" class="apply-button">Apply</a>
+                            <a href="{{ url_for('apply_policy', policy_name=item.title) }}" class="apply-button">Apply</a>
                             <a href="${policy.moreInfoLink}" class="view-more-button">View More</a>
                             </div>
                            
@@ -142,7 +205,15 @@
         </div>
     </div>
 
-    <footer>
+   
+
+
+
+
+
+
+
+    <!-- <footer>
         <div class="social-media-icons">
             <a href="#"><i class="fab fa-facebook"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -153,11 +224,14 @@
             <p>Follow us on social media for more updates!</p>
             <p>&copy; 2024 Harvestify. All rights reserved.</p>
         </div>
-    </footer>
+    </footer> -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+    <script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
+        
+        <!--=============== MAIN JS ===============-->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
