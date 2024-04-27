@@ -72,6 +72,8 @@ disease_model.load_state_dict(torch.load(
 disease_model.eval()
 
 
+
+
 def predict_image(img, model=disease_model):
     """
     Transforms image to tensor and predicts disease label
@@ -93,6 +95,9 @@ def predict_image(img, model=disease_model):
     prediction = disease_classes[preds[0].item()]
     # Retrieve the class label
     return prediction
+
+
+
 
 
 @ app.route('/')
@@ -193,7 +198,7 @@ def disease_prediction():
             img = file.read()
 
             prediction = predict_image(img)
-            
+           
             prediction = Markup(str(disease_dic[prediction]))
 
             return render_template('disease_new-result.html', prediction=prediction, title=title)
@@ -264,19 +269,20 @@ def logout():
     return redirect(url_for('home_community'))
 
 
+
+
 @app.route('/home_community')
 def home_community():
     if 'user' in session:
         user = session['user']
         all_posts = posts.find().sort('_id', -1)
         all_comments = comments.find().sort('_id',-1)
-        a = list(all_comments)
-        # b = list()
-        # for i in all_posts:
-        #     b.append(str(i['_id']))
+        convert = list(all_comments)
+        
+        for i in convert:
+            i['post_id'] = ObjectId(i['post_id'])
 
-        # print(b)
-        return render_template('home.html', user=user, posts=all_posts,comments= all_comments,a=a)
+        return render_template('home.html', user=user, posts=all_posts,comments= convert)
     return redirect(url_for('login'))
 
 
@@ -368,16 +374,17 @@ def dislike_post(post_id):
             flash('You disliked the post!')
     return redirect(url_for('home_community'))
 
+
+
 @app.route('/comment_post/<post_id>', methods=['POST'])
 def comment_post(post_id):
     if 'user' in session:
         user = session['user']
         comment_content = request.form['comment_content']
+
         # Add the comment to the comments collection along with the post_id and user information
         comments.insert_one({'post_id': post_id, 'user': user, 'content': comment_content})
-        # comments_user.append(user)
-        # comments_list.append(comment_content)
-        # leng = len(comments_user)
+        
         flash('Your comment was added.')
     return redirect(url_for('home_community'))
     
@@ -392,7 +399,7 @@ def policcy():
 
 
 
-# policy db
+# Connecting Policy DB to Flask
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/Policies'
 mongo = PyMongo(app)
 
@@ -407,7 +414,7 @@ if not os.path.exists(UPLOAD_FOLDER2):
     os.makedirs(UPLOAD_FOLDER2)
 
 
-# defining collection
+# Defining new collection for policies
 policy_data = mongo.db.policy_data
 
 
@@ -468,7 +475,7 @@ def apply_policy(policy_name):
     return redirect(url_for('login'))
 
 
-    
+
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  
 

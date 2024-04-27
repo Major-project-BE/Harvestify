@@ -39,7 +39,10 @@
                 <br>
                   
                     {% for comment in comments %}
-                        {{comment}}
+                        {% if comment['post_id'] == post._id: %}
+                            <p><strong>{{comment['user']}}<strong> - {{comment['content']}}</p>
+                            <br>
+                        {%endif%}
                     {%endfor%}
                 <br>
                 <!-- Comment form -->
@@ -54,13 +57,5 @@
         {% endfor %}
         
     </ul>
-    <!-- {% for post in posts %}
-        {% for comment in comments %}
-            <li>
-                <strong>{{ comment.user }}</strong> - {{ comment.date }}
-                {{ comment.content }}
-            </li>
-        {% endfor %}
-    {% endfor %} -->
-    
+
 {% endblock %}
