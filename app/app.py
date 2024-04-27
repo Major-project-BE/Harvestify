@@ -23,6 +23,8 @@ from utils.model import ResNet9
 from bson import ObjectId
 import datetime
 
+
+
 app = Flask(__name__)
 
 
@@ -454,6 +456,7 @@ def apply_policy(policy_name):
                 income_filename = income_filename
             else:
                 income_filename = None
+            
            
 
             policy_doc ={

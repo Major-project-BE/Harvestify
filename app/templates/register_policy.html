@@ -3,22 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
+    <title>{{title}}</title> <!-- Move this line above the other title -->
+
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+
+    <!--=============== REMIX ICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-image: url('img.png');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
+        .card {
+            max-width: 500px; /* Decrease the width */
+            width: 100%;
             padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            background: #f0f8ff;
+            border: 5px solid #4CAF50;
+            margin: 20px 0;
+            margin-top: 100px;
         }
 
         h2 {
             text-align: center;
+            margin-bottom: 20px;
+            margin-top: 0; /* Adjusted margin */
+            font-size: 24px; /* Decreased font size */
+            color: black;
         }
 
         .form-group {
@@ -28,79 +55,137 @@
         label {
             display: block;
             margin-bottom: 5px;
+            color: #000000;
         }
 
         input[type="text"],
         input[type="number"],
         select {
-            width: 100%;
-            padding: 8px;
+            width: calc(100% - 20px);
+            padding: 12px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 8px;
             box-sizing: border-box;
+            padding-left: 40px;
+            background-color: #f9f9f9;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            
+        }
+
+        ::placeholder {
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .fa {
+            position: absolute;
+            top: 22px;
+            left: 14px;
+            
         }
 
         button {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 25px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
             width: 100%;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
             background-color: #45a049;
         }
-
-        @media screen and (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <form id="registrationForm" method="POST" enctype="multipart/form-data">
-            <h2>Registration Form</h2>
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="address">Address:</label>
-                <input type="text" id="address" name="address" required>
-            </div>
-            <div class="form-group">
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" required>
-            </div>
-            <div class="form-group">
-                <label for="gender">Gender:</label>
-                <select id="gender" name="gender" required>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="adhaar">Adhaar PDF:</label>
-                <input type="file" id="adhaar" name="aadhar" accept=".pdf" required>
-            </div>
-            <div class="form-group">
-                <label for="policyName">Policy Name:</label>
-                <input type="text" id="policyName" name="policy_name" value="{{policy_name}}">
-            </div>
-            <div class="form-group">
-                <label for="incomeCertificate">Income Certificate:</label>
-                <input type="file" id="incomeCertificate" name="incomeCertificate" accept=".pdf" required>
-            </div>
-            <input type="submit">Submit</button>
-        </form>
-    </div>
 
-    
+<header class="header" id="header">
+    <nav class="nav container">
+        <a href="{{ url_for('home') }}" class="nav__logo">
+            <i class="ri-leaf-line nav__logo-icon"></i> Harvestify - Community
+        </a>
+
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <li class="nav__item" ><a href="{{ url_for('home_community') }}" class="nav__link ">Home</a></li>
+                <li class="nav__item" ><a href="{{ url_for('policcy') }}" class="nav__link active-link">Policy</a></li>
+                {% if 'user' in session %}
+                    <li class="nav__item"><a href="{{ url_for('create_post') }}" class="nav__link">Create Post</a></li>
+                    <li class="nav__item"><a href="{{ url_for('logout') }}" class="nav__link">Logout</a></li>
+                {% else %}
+                    <li class="nav__item"><a href="{{ url_for('login') }}" class="nav__link">Login</a></li>
+                    <li class="nav__item"><a href="{{ url_for('register') }} " class="nav__link">Register</a></li>
+                {% endif %}
+            </ul>
+
+            <div class="nav__close" id="nav-close">
+                <i class="ri-close-line"></i>
+            </div>
+        </div>
+
+        <div class="nav__btns">
+            <!-- Theme change button -->
+            <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="ri-menu-line"></i>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="card">
+    <h2>Registration Form</h2>
+    <form id="registrationForm" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name"><i class="fas fa-user"></i> Name</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label for="address"><i class="fas fa-address-card"></i> Address</label>
+            <input type="text" id="address" name="address" required placeholder="Enter your address">
+        </div>
+        <div class="form-group">
+            <label for="age"><i class="fas fa-birthday-cake"></i> Age</label>
+            <input type="number" id="age" name="age" required placeholder="Enter your age">
+        </div>
+        <div class="form-group">
+            <label for="gender"><i class="fas fa-venus-mars"></i> Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="policyName"><i class="far fa-file-alt"></i> Policy Name</label>
+            <input type="text" id="policyName" name="policy_name" value="{{policy_name}}" placeholder="Enter policy name">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="adhaar"><i class="far fa-id-card"></i> Aadhaar Card (PDF) </label>
+            <input type="file" id="adhaar" name="aadhar" accept=".pdf" required>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="incomeCertificate"><i class="far fa-file"></i> Income Certificate (PDF) </label>
+            <input type="file" id="incomeCertificate" name="incomeCertificate" accept=".pdf" required>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+
+
+<!--=============== SCROLL REVEAL ===============-->
+<script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
+
+<!--=============== MAIN JS ===============-->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 </body>
 </html>
