@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from flask_pymongo import PyMongo
-from flask import Flask, render_template, request, redirect, url_for, flash, session,    send_from_directory, jsonify    
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory, jsonify    
 from flask_pymongo import PyMongo
 from datetime import datetime
 import torch
@@ -237,12 +237,12 @@ def register():
         # Check if the username is already in use
         existing_user = users.find_one({'username': username})
         if existing_user:
-            flash('Username already exists. Choose a different one.')
+            flash('Username already exists. Choose a different one.','error')
         else:
             # Insert the new user into the database
             new_user = {'username': username, 'password': password}
             users.insert_one(new_user)
-            flash('Registration successful. You can now log in.')
+            flash('Registration successful. You can now log in.','success')
             return redirect(url_for('login'))
 
     return render_template('login_new.html')
@@ -255,12 +255,12 @@ def login():
         password = request.form['password']
 
         user = users.find_one({'username': username, 'password': password})
-        if user:
-            session['user'] = username
-            flash('Login successful.')
-            return redirect(url_for('home_community'))
+        if not user:
+            flash('Invalid Username or Password.','error')
         else:
-            flash('Invalid username or password.')
+            session['user'] = username
+            return redirect(url_for('home_community'))
+            
             
 
     return render_template('login_new.html',title=title)
@@ -275,6 +275,7 @@ def logout():
 
 @app.route('/home_community')
 def home_community():
+    
     if 'user' in session:
         user = session['user']
         all_posts = posts.find().sort('_id', -1)
