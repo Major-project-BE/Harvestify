@@ -534,23 +534,33 @@ def extract_name_from_aadhar():
         # Remove any empty lines from the list
         lines = [line.strip() for line in lines if line.strip()]
 
+
         # Print the list of lines
+        
+        my_list = []
         for line in lines:
-            print(line)
+            if "Nitrogen" in line:
+                my_list.append(line)
+            if "Phosphorous" in line:
+                my_list.append(line)
+            if "Potassium" in line:
+                my_list.append(line)
+        my_text = "\n".join(my_list)
+        print(my_text)
+
         
         pattern = r'\d+\.\d+'
 
-        matches = re.findall(pattern, text)
+        matches = re.findall(pattern, my_text)
+        print(matches)
 
         extracted_values = [float(match) for match in matches]
-
-      
         
         if extracted_values:
             print(extracted_values)
-            N = extracted_values[7]
-            P = extracted_values[8]
-            K = extracted_values[9]
+            N = extracted_values[0]
+            P = extracted_values[1]
+            K = extracted_values[2]
             return render_template('extracted_details.html',N = N,K = K, P= P)
            
         else:
