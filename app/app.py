@@ -534,9 +534,7 @@ def extract_name_from_aadhar():
         # Remove any empty lines from the list
         lines = [line.strip() for line in lines if line.strip()]
 
-
-        # Print the list of lines
-        
+        ##
         my_list = []
         for line in lines:
             if "Nitrogen" in line:
