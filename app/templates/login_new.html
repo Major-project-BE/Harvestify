@@ -318,6 +318,18 @@
                                 </div>
                             </form>
                         </div>
+                        
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                    {% if messages %}
+                                        {% for category, message in messages %}
+                                            
+                                            <script>
+                                                alert("{{ message }}");
+                                            </script>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
+                        
 
                         <div class="wrapper-register">
 
@@ -350,6 +362,7 @@
                 card.classList.toggle('is-flipped');
             }
         </script>
+        
 
 <script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
         
