@@ -1,0 +1,1 @@
+Set-Content replace-script.txt 's/2iQhXUg4INSWawsnprKqNHBbg6S/REMOVED_SECRET/g'
