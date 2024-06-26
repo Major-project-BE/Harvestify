@@ -22,7 +22,7 @@ from PIL import Image
 from utils.model import ResNet9
 from bson import ObjectId
 import datetime
-
+from twilio.rest import Client
 
 
 app = Flask(__name__)
@@ -421,6 +421,12 @@ if not os.path.exists(UPLOAD_FOLDER2):
 policy_data = mongo.db.policy_data
 
 
+# Twilio configuration
+TWILIO_ACCOUNT_SID = 'AC03c8248bd59994d4985d7f8930783cb5'
+TWILIO_AUTH_TOKEN = '779d6c2664307f6a9177a9f4c8b2dd16'
+TWILIO_PHONE_NUMBER = '+17143123626'
+client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+
 @app.route('/upload_aadhar/<filename>')
 def uploaded_file1(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER1'], filename)
@@ -460,19 +466,28 @@ def apply_policy(policy_name):
             
            
 
+            phone_no = '+91'+str(request.form['phone_no'])
+
             policy_doc ={
                 'name' : name,
                 'age' : age,
                 'gender' : gender,
                 'address' : address,
+                'phone_no': phone_no,
                 'policy_name': policy_name,
                 'aadhar_filename' : aadhar_filename,
                 'income_filename' : income_filename
             }
 
+            # Send message using Twilio
+            message = client.messages.create(
+                body=f"Your form for ({policy_name}) has been submitted successfully. We will contact you in future for the further process, ({policy_name}) के लिए आपका फॉर्म सफलतापूर्वक सबमिट कर दिया गया है। आगे की प्रक्रिया के लिए हम भविष्य में आपसे संपर्क करेंगे। आपकी माँ का भोसड़ा",
+                from_=TWILIO_PHONE_NUMBER,
+                to= phone_no
+            )
 
             policy_data.insert_one(policy_doc)
-            flash('Post created successfully.')
+            flash('You have Registered for the Policy')
             return redirect(url_for('policcy'))
        
         return render_template('register_policy.html',policy_name=policy_name)
